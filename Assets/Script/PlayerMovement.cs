@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] public SpriteRenderer avatar;
+
     private float moveSpeed = 3f;
     private Rigidbody2D rb;
     private Vector2 v;
@@ -13,20 +15,15 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Movement()
+    private void Update()
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        v = new Vector2 (x, y).normalized;
-    }
-
-    private void Update()
-    {
-        Movement();
+        v = new Vector2(x, y).normalized;
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(v.x * moveSpeed * Time.deltaTime, v.y * moveSpeed * Time.deltaTime);
+        rb.velocity = new Vector2(v.x * moveSpeed, v.y * moveSpeed);
     }
 }
