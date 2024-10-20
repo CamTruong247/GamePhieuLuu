@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] public SpriteRenderer avatar;
 
@@ -17,13 +18,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        v = new Vector2(x, y).normalized;
+        MoveServerRpc();
+    }
+
+    [ClientRpc]
+    private void MoveClientRpc()
+    {
+        if (IsOwner)
+        {
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            v = new Vector2(x, y).normalized;
+            if (x > 0)
+            {
+                gameObject.transform.GetChild(0).localScale = new Vector3(1, 1, 0);
+            }
+            else if (x < 0)
+            {
+                gameObject.transform.GetChild(0).localScale = new Vector3(-1, 1, 0);
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void MoveServerRpc()
+    {
+        MoveClientRpc();
+    }
+
+    [ClientRpc]
+    private void FUMoveClientRpc()
+    {
+        rb.velocity = new Vector2(v.x * moveSpeed, v.y * moveSpeed);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FUMoveServerRpc()
+    {
+        FUMoveClientRpc();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(v.x * moveSpeed, v.y * moveSpeed);
+        FUMoveServerRpc();
     }
 }
