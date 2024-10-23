@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,13 +8,25 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform shootingPoint;
 
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+            AttackServerRpc();
         }
-        RotationWeaponServerRpc();
+    }
+
+    private void FixedUpdate()
+    {
+        RotationWeapon();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AttackServerRpc()
+    {
+        var b = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+        b.GetComponent<NetworkObject>().Spawn();
     }
 
     public override void OnNetworkSpawn()
@@ -24,35 +36,28 @@ public class Weapon : NetworkBehaviour
             enabled = false;
             return;
         }
-
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void RotationWeaponServerRpc()
-    {
-        RotationWeaponClientRpc();
-    }
 
-    [ClientRpc]
-    private void RotationWeaponClientRpc()
+    private void RotationWeapon()
     {
-        if (IsOwner)
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 look = mousePos - transform.position;
+        float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        transform.rotation = rotation;
+
+        /*if(transform.eulerAngles.z > 90 && transform.eulerAngles.z <270)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 look = mousePos - transform.position;
-            float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg;
-
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            transform.rotation = rotation;
-
-            /*if(transform.eulerAngles.z > 90 && transform.eulerAngles.z <270)
-            {
-                transform.localScale = new Vector3(1, -1, 0);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 0);
-            }*/
+            transform.localScale = new Vector3(1, -1, 0);
         }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 0);
+        }*/
+
     }
+
+
 }
