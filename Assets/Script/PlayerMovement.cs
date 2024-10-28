@@ -11,6 +11,8 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody2D rb;
     private Vector2 v;
 
+    public Animator animator;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,6 +23,18 @@ public class PlayerMovement : NetworkBehaviour
         MoveServerRpc();
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void AnimatorServerRpc(float speed)
+    {
+        AnimatorClientRpc(speed);
+    }
+
+    [ClientRpc]
+    private void AnimatorClientRpc(float speed)
+    {
+        animator.SetFloat("Speed", speed);
+    }
+
     [ClientRpc]
     private void MoveClientRpc()
     {
@@ -28,7 +42,12 @@ public class PlayerMovement : NetworkBehaviour
         {
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
+
+            float speed = new Vector2(x, y).magnitude;
+
+            AnimatorServerRpc(speed);
             v = new Vector2(x, y).normalized;
+
             if (x > 0)
             {
                 gameObject.transform.GetChild(0).localScale = new Vector3(1, 1, 0);
@@ -41,7 +60,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void MoveServerRpc()
+    private void MoveServerRpc()
     {
         MoveClientRpc();
     }

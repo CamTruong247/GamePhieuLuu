@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4214789412046551086}
   - component: {fileID: 5949357175300038937}
+  - component: {fileID: 3166152550875579555}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3166152550875579555
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507953787331465463}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b34101db9fd80894999292975b135db2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2775131236137909777
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +118,7 @@ GameObject:
   - component: {fileID: 202832819119053474}
   - component: {fileID: 7362345823791042709}
   - component: {fileID: 3686007222176061869}
+  - component: {fileID: 1386162184423243405}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -112,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 2775131236137909777}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.515, y: -0.185, z: 0}
+  m_LocalPosition: {x: 0.146, y: -0.255, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -133,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 6836142412927083766, guid: 87bd3df37e9ff59429a31f45c120e6ba, type: 3}
   shootingPoint: {fileID: 3214291345856571404}
+  animator: {fileID: 1386162184423243405}
 --- !u!212 &7362345823791042709
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -174,7 +198,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d5b1b4eaa04e4f0438ed269263530c01, type: 3}
+  m_Sprite: {fileID: 366455379, guid: 9537c01d2a310ff4fa796822760daaa8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,6 +240,27 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!95 &1386162184423243405
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775131236137909777}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 471a83c5966514a4cab5516b91ddd392, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3641359029085169074
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +274,6 @@ GameObject:
   - component: {fileID: 5105950041126437410}
   - component: {fileID: 7119615555469352339}
   - component: {fileID: 4651782839202927481}
-  - component: {fileID: 3881289941169498234}
   - component: {fileID: 3430810665274669373}
   m_Layer: 0
   m_Name: Player
@@ -361,27 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 5949357175300038937}
---- !u!95 &3881289941169498234
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3641359029085169074}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b34101db9fd80894999292975b135db2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  animator: {fileID: 3166152550875579555}
 --- !u!114 &3430810665274669373
 MonoBehaviour:
   m_ObjectHideFlags: 0

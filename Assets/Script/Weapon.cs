@@ -8,6 +8,8 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform shootingPoint;
 
+    public Animator animator;
+
 
     void Update()
     {
@@ -25,8 +27,19 @@ public class Weapon : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void AttackServerRpc()
     {
-        var b = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
-        b.GetComponent<NetworkObject>().Spawn();
+        if (IsServer)
+        {
+            AttackClientRpc();
+            var b = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+            b.GetComponent<NetworkObject>().Spawn();
+        }
+    }
+
+    [ClientRpc]
+    private void AttackClientRpc()
+    {
+        animator.SetTrigger("Attack");
+
     }
 
     public override void OnNetworkSpawn()
