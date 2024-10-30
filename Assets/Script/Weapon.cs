@@ -17,6 +17,7 @@ public class Weapon : NetworkBehaviour
         {
             AttackServerRpc();
         }
+
     }
 
     private void FixedUpdate()
