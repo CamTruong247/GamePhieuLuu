@@ -11,49 +11,47 @@ public class PlayerStats : NetworkBehaviour
 
     private float health = 100;
 
-    //public NetworkVariable<ulong> ID { get; private set; }
-    //public NetworkVariable<FixedString128Bytes> PlayerName;
-
-    //private void Awake()
-    //{
-    //    ID = new(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    //    PlayerName = new("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    //    RegisterEvent();
-    //}
-
-    //private void RegisterEvent()
-    //{
-    //    ID.OnValueChanged += (oldID, newID) =>
-    //    {
-    //        oldID = newID;
-    //    };
-    //    PlayerName.OnValueChanged += (oldName, newName) =>
-    //    {
-    //        name = newName.Value;
-    //    };
-    //}
-
-    //public override void OnNetworkSpawn()
-    //{
-    //    if (IsOwner)
-    //    {
-    //        ID.Value = OwnerClientId;
-    //        PlayerName.Value = PlayerPrefs.GetString("Player_Name" + ID);
-    //        return;
-    //    }
-    //    name = PlayerName.Value.ToString();
-    //}
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            enabled = false;
+            return;
+        }
+    }
 
     private void Update()
     {
-        //if (health < 100)
-        //{
-        //    health += 0.5f * Time.deltaTime;
-        //    healthbar.fillAmount = health / 100f;
-        //}
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    health -= 20f;
-        //}
+        HealthBarServerRpc();
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void HealthBarServerRpc()
+    {
+        HealthBarClientRpc();
+    }
+
+    [ClientRpc]
+    private void HealthBarClientRpc()
+    {
+        healthbar.fillAmount = health / 100f;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdateHealthServerRpc(float health)
+    {
+        UpdateHealthClientRpc(health);
+    }
+
+    [ClientRpc]
+    public void UpdateHealthClientRpc(float health)
+    {
+        this.health -= health;
+        if (this.health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 }

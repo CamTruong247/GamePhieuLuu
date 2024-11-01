@@ -16,7 +16,7 @@ public class Bullet : NetworkBehaviour
         {
             StartCoroutine(Deplay());
         }
-        
+
     }
 
     private IEnumerator Deplay()
@@ -27,6 +27,19 @@ public class Bullet : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * 4 ;
+        rb.velocity = transform.up * 4;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            SlimeMovement slimeMovement = collision.gameObject.GetComponent<SlimeMovement>();
+            slimeMovement.UpdateHealthServerRpc(3);
+            if (IsServer)
+            {
+                GetComponent<NetworkObject>().Despawn();
+            }
+        }
     }
 }

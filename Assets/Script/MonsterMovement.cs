@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlimeMovement : NetworkBehaviour
 {
     //public SpriteRenderer avatar;
+    [SerializeField] private Image healthbar;
 
     private float moveSpeed = 2f; // Tốc độ di chuyển của slime
     private Rigidbody2D rb;
@@ -16,6 +18,8 @@ public class SlimeMovement : NetworkBehaviour
     private Quaternion originalRotate;
     private float chaseDirection;
 
+    public float health = 20f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +29,7 @@ public class SlimeMovement : NetworkBehaviour
 
     private void Update()
     {
+        
         if (IsServer)
         {
             FindNearestPlayer();
@@ -48,7 +53,9 @@ public class SlimeMovement : NetworkBehaviour
                 }
                 transform.rotation = originalRotate;
             }
+            HealthBarServerRpc();
         }
+        
     }
 
     private void FindNearestPlayer()
@@ -90,7 +97,7 @@ public class SlimeMovement : NetworkBehaviour
         }
         else if (newDirection.x < 0)
         {
-           transform.localScale = new Vector3(-1, 1, 1); // Facing left
+            transform.localScale = new Vector3(-1, 1, 1); // Facing left
         }
     }
 
@@ -100,4 +107,42 @@ public class SlimeMovement : NetworkBehaviour
         // Dừng di chuyển khi ra ngoài tầm phát hiện
         MoveClientRpc(Vector2.zero);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerStats playerStats = collision.gameObject.GetComponent<PlayerStats>();
+            playerStats.UpdateHealthServerRpc(10);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdateHealthServerRpc(float health)
+    {
+        UpdateHealthClientRpc(health);
+    }
+
+    [ClientRpc]
+    public void UpdateHealthClientRpc(float health)
+    {
+        this.health -= health;
+        if (this.health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void HealthBarServerRpc()
+    {
+        HealthBarClientRpc();
+    }
+
+    [ClientRpc]
+    private void HealthBarClientRpc()
+    {
+        healthbar.fillAmount = health / 20f;
+    }
+
 }
