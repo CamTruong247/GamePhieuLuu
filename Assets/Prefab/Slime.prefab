@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8753295317817412744}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 405123444220243400}
   - component: {fileID: 1699925933233247423}
   - component: {fileID: 5582784637283724550}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 1065303048784641397}
   - component: {fileID: 2450221878254850559}
   - component: {fileID: 5295465334755229861}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,9 +229,9 @@ GameObject:
   - component: {fileID: 657828856412564196}
   - component: {fileID: -6956668887443141050}
   - component: {fileID: 4492403789410888767}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 2876160370234773631}
   - component: {fileID: 7015090596142563731}
   - component: {fileID: 4375962381145952473}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
