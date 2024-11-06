@@ -29,10 +29,13 @@ public class SlimeKingBullet : NetworkBehaviour
     }
     private IEnumerator Deplay()
     {
+        if (IsServer)
+        {
+            yield return new WaitForSeconds(5);
+
+            GetComponent<NetworkObject>().Despawn();
+        }
         
-        yield return new WaitForSeconds(5);
-      
-        GetComponent<NetworkObject>().Despawn();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,7 +44,11 @@ public class SlimeKingBullet : NetworkBehaviour
         {
             PlayerStats playerStats = collision.gameObject.GetComponent<PlayerStats>();
             playerStats.UpdateHealthServerRpc(10);
-            GetComponent<NetworkObject>().Despawn();
+            if (IsServer)
+            {
+                GetComponent<NetworkObject>().Despawn();
+
+            }
         }
     }
 }

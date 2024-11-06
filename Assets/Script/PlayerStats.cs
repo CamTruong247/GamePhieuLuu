@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
@@ -10,6 +10,14 @@ public class PlayerStats : NetworkBehaviour
     [SerializeField] private Image healthbar;
 
     private float health = 100;
+
+    private void Awake()
+    {
+        if (IsOwner)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     public override void OnNetworkSpawn()
     {
