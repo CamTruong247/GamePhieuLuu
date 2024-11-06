@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 721591356
+  GlobalObjectIdHash: 1527976881
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -539,11 +539,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3994876401106952251, guid: 49fcc4e0f51be9e4993fd6521afc38a4, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2067434541
+      value: 2223755123
       objectReference: {fileID: 0}
     - target: {fileID: 6915085085101879606, guid: 49fcc4e0f51be9e4993fd6521afc38a4, type: 3}
       propertyPath: m_Name
       value: GolemBoss Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8574327465811462375, guid: 49fcc4e0f51be9e4993fd6521afc38a4, type: 3}
+      propertyPath: m_Constraints
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
