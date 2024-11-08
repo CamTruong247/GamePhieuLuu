@@ -7,22 +7,46 @@ public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] public SpriteRenderer avatar;
 
-    private float moveSpeed = 3f;
+    private float baseSpeed = 3f; 
+    private float moveSpeed;
     private Rigidbody2D rb;
     private Vector2 v;
 
     public Animator animator;
-
+    public SkillData speedSkillData;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveSpeed = baseSpeed;
     }
-
+    private void Start()
+    {
+        if (speedSkillData.isSkillUnlocked)
+        {
+            SetMoveSpeedServerRpc(baseSpeed * 2); 
+        }
+        else
+        {
+            SetMoveSpeedServerRpc(baseSpeed); 
+        }
+    }
     private void Update()
     {
         MoveServerRpc();
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void SetMoveSpeedServerRpc(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+        SetMoveSpeedClientRpc(newSpeed); // Đồng bộ lên tất cả các client
+    }
 
+    // ClientRpc để cập nhật moveSpeed trên client
+    [ClientRpc]
+    private void SetMoveSpeedClientRpc(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+    }
     [ServerRpc(RequireOwnership = false)]
     private void AnimatorServerRpc(float speed)
     {

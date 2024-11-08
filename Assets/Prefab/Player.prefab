@@ -377,6 +377,7 @@ MonoBehaviour:
   laser: {fileID: 6871957824669633154, guid: 3049d3622e6a6af4483de3d61df1ad7f, type: 3}
   shootingPoint: {fileID: 3214291345856571404}
   animator: {fileID: 1386162184423243405}
+  skillData: {fileID: 11400000, guid: 1bbbdddf3fa840c43a777e91467bdcc7, type: 2}
 --- !u!212 &7362345823791042709
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -499,6 +500,7 @@ GameObject:
   - component: {fileID: 3915311848575998754}
   - component: {fileID: 1803852506416279386}
   - component: {fileID: 4789724569066380133}
+  - component: {fileID: 788420355232283211}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -608,7 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1982406225
+  GlobalObjectIdHash: 4194600967
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -631,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 5949357175300038937}
   animator: {fileID: 3166152550875579555}
+  speedSkillData: {fileID: 11400000, guid: 54067c820845c8941aceee03ba010359, type: 2}
 --- !u!114 &3430810665274669373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +713,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthbar: {fileID: 6619819513603292097}
+  healingEffect: {fileID: 7377084912034221569, guid: 81e61d94951f2bd4cbc7ed151eaf170c, type: 3}
+  healSkillData: {fileID: 11400000, guid: 6a3991e00476aaf449a9d817423620a8, type: 2}
 --- !u!114 &4789724569066380133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,6 +727,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &788420355232283211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641359029085169074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebfce70d357c42b48bc8fc43ce4832e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  damagePerSecond: 1
+  auraSkillData: {fileID: 11400000, guid: ddb04a3c619ee414982d8279150497f0, type: 2}
 --- !u!1 &7149539288284174008
 GameObject:
   m_ObjectHideFlags: 0

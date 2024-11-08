@@ -40,7 +40,7 @@ public class Bullet : NetworkBehaviour
             werewolfmovement werewolfMovement = collision.gameObject.GetComponent<werewolfmovement>();
             if (werewolfMovement != null)
             {
-                werewolfMovement.UpdateHealthServerRpc(5);
+                werewolfMovement.UpdateHealthServerRpc(3);
             }
 
             // Kiểm tra nếu đối tượng là Slime
@@ -54,20 +54,24 @@ public class Bullet : NetworkBehaviour
             GolemBoss golemMovement = collision.gameObject.GetComponent<GolemBoss>();
             if (golemMovement != null)
             {
-                golemMovement.UpdateHealthServerRpc(5); 
+                golemMovement.UpdateHealthServerRpc(3); 
             }
 
             // Kiểm tra nếu đối tượng là Slime King
             SlimeKingMovement slimeKingMovement = collision.gameObject.GetComponent<SlimeKingMovement>();
             if (slimeKingMovement != null)
             {
-                slimeKingMovement.UpdateHealthServerRpc(5); 
+                slimeKingMovement.UpdateHealthServerRpc(3); 
             }
 
             // Despawn the bullet after hitting an enemy if on the server
             if (IsServer)
             {
-                GetComponent<NetworkObject>().Despawn();
+                NetworkObject networkObject = GetComponent<NetworkObject>();
+                if (networkObject != null && networkObject.IsSpawned)
+                {
+                    networkObject.Despawn(); // Hủy đối tượng
+                }
             }
         }
 

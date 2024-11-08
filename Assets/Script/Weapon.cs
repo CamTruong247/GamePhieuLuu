@@ -8,6 +8,7 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private GameObject laser; // GameObject cho kỹ năng laser
     [SerializeField] private Transform shootingPoint; // Điểm bắn
     public Animator animator; // Animator để điều khiển hoạt ảnh
+    public SkillData skillData; // Tham chiếu tới SkillData
 
     private bool isAutoAttackActive = false; // Trạng thái tấn công tự động
 
@@ -60,8 +61,18 @@ public class Weapon : NetworkBehaviour
         if (IsServer)
         {
             AttackClientRpc();
-            var b = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
-            b.GetComponent<NetworkObject>().Spawn();
+
+            // Kiểm tra kỹ năng có mở khóa không
+            if (skillData != null && skillData.isSkillUnlocked)
+            {
+                // Nếu kỹ năng mở khóa, tạo ra 2 viên đạn song song
+                FireTwoBullets();
+            }
+            else
+            {
+                // Nếu kỹ năng chưa mở khóa, chỉ bắn 1 viên đạn
+                FireOneBullet();
+            }
         }
     }
 
@@ -76,7 +87,6 @@ public class Weapon : NetworkBehaviour
     {
         if (IsServer)
         {
-           
             Vector3 laserPosition = transform.position; // Đặt laser ở vị trí của nhân vật
             var l = Instantiate(laser, laserPosition, transform.rotation);
             l.GetComponent<NetworkObject>().Spawn();
@@ -92,8 +102,6 @@ public class Weapon : NetworkBehaviour
         yield return new WaitForSeconds(delay); // Chờ trong khoảng thời gian delay
         Destroy(laser); // Hủy laser
     }
-
-
 
     public override void OnNetworkSpawn()
     {
@@ -111,5 +119,23 @@ public class Weapon : NetworkBehaviour
         float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
         transform.rotation = rotation; // Xoay vũ khí
+    }
+
+    private void FireOneBullet()
+    {
+        // Bắn 1 viên đạn như bình thường
+        var b = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+        b.GetComponent<NetworkObject>().Spawn();
+    }
+
+    private void FireTwoBullets()
+    {
+        var b1 = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+        var b2 = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);  
+        float angleOffset = 5f;
+        float angle = shootingPoint.rotation.eulerAngles.z + angleOffset;    
+        b2.transform.rotation = Quaternion.Euler(0, 0, angle); 
+        b1.GetComponent<NetworkObject>().Spawn();
+        b2.GetComponent<NetworkObject>().Spawn();
     }
 }
