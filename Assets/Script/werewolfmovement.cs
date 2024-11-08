@@ -24,12 +24,13 @@ public class werewolfmovement : NetworkBehaviour
     public  float health = 20f;
 
     private bool isDashing = false;
-
+    private MonsterManage monsterManage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         originalRotate = transform.rotation;
+        monsterManage = FindObjectOfType<MonsterManage>();
     }
 
     private void Update()
@@ -155,6 +156,7 @@ public class werewolfmovement : NetworkBehaviour
         if (this.health <= 0)
         {
             Destroy(gameObject);
+            RemoveMonsterServerRpc();
         }
     }
 
@@ -169,5 +171,11 @@ public class werewolfmovement : NetworkBehaviour
     {
         healthbar.fillAmount = health / 20f;
     }
+    [ServerRpc(RequireOwnership = false)]
 
+    private void RemoveMonsterServerRpc()
+    {
+        monsterManage.HandleMonsterDeathServerRpc(gameObject);
+        Destroy(gameObject);
+    }
 }

@@ -10,15 +10,19 @@ public class WaveManager : NetworkBehaviour
     public GameObject slimeKingPrefab;
     public GameObject golemBossPrefab;
     public float waveDuration = 30f; // Thời gian mỗi lượt (30 giây)
-    public int monstersPerWave = 10; // Số quái vật mỗi lượt
+    public int monstersPerWave = 6; // Số quái vật mỗi lượt
     private int currentWave = 0; // Đếm số lượt hiện tại
 
-    private bool isWaveInProgress = false;
+    private int slimeKingCount = 0; // Số lượng slime king đã spawn
+    private int golemCount = 0;     // Số lượng golem đã spawn
 
-    private List<GameObject> activeEnemies = new List<GameObject>(); // Danh sách các quái vật đang sống
+    private bool isWaveInProgress = false;
+    private MonsterManage monsterManage;
+
 
     private void Start()
     {
+        monsterManage = FindObjectOfType<MonsterManage>();
         if (IsServer)
         {
             StartCoroutine(SpawnWave()); // Server bắt đầu spawn
@@ -40,9 +44,7 @@ public class WaveManager : NetworkBehaviour
                 // Đợi trong 30 giây cho mỗi lượt
                 yield return new WaitForSeconds(waveDuration);
 
-                
                 isWaveInProgress = false;
-
             }
 
             yield return null;
@@ -53,7 +55,7 @@ public class WaveManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnMonstersServerRpc(int wave)
     {
-        SpawnMonstersClientRpc(wave);
+        SpawnMonsters(wave);
     }
 
     // ClientRpc để spawn quái vật trên tất cả client
@@ -90,55 +92,41 @@ public class WaveManager : NetworkBehaviour
                 if (networkObject != null)
                 {
                     networkObject.Spawn();
-
-                    // Thêm quái vật vào danh sách activeEnemies
-                    activeEnemies.Add(monster);
                 }
+                monsterManage.AddMonsterToActiveListServerRpc(monster);
             }
         }
     }
 
     private Vector3 GetRandomSpawnPosition()
     {
-        // Đặt phạm vi spawn (bạn có thể thay đổi giá trị theo yêu cầu)
-        float xRange = 10f; // Phạm vi theo trục X
-        float yRange = 10f; // Phạm vi theo trục Y
-
-        // Tạo tọa độ ngẫu nhiên trong phạm vi
+        float xRange = 10f;
+        float yRange = 10f;
         float randomX = Random.Range(-xRange, xRange);
         float randomY = Random.Range(-yRange, yRange);
 
-        // Trả về vị trí ngẫu nhiên
-        return new Vector3(randomX, randomY, 0f); // Nếu bạn dùng 2D, z sẽ là 0
+        return new Vector3(randomX, randomY, 0f); 
     }
-
     private GameObject GetMonsterByDifficulty(int wave)
     {
-        // Cài đặt quái vật theo độ khó
-        if (wave <= 3)
+        
+        if (wave >= 7 && golemCount < 1)
         {
-            return slimePrefab;
-        }
-        else if (wave <= 6)
-        {
-            return werewolfPrefab;
-        }
-        else if (wave <= 9)
-        {
-            return slimeKingPrefab;
-        }
-        else
-        {
+            
+            golemCount++;
             return golemBossPrefab;
         }
+        else if (wave >= 5 && slimeKingCount < 3)
+        {
+           
+            slimeKingCount++;
+            return slimeKingPrefab;
+        }
+
+       
+        return wave <= 3 ? slimePrefab : werewolfPrefab;
     }
 
-    // Gọi phương thức này khi quái vật bị tiêu diệt
-    public void RemoveMonsterFromActiveList(GameObject monster)
-    {
-        if (activeEnemies.Contains(monster))
-        {
-            activeEnemies.Remove(monster);
-        }
-    }
+  
+    
 }

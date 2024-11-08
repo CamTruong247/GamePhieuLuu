@@ -19,14 +19,14 @@ public class SlimeKingMovement : NetworkBehaviour
     private int attackMode = 1;
     public float health = 40f;
     private float attackCooldown = 2f;
-
+    private MonsterManage monsterManage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         
         animator = GetComponent<Animator>();
         originalRotate = transform.rotation;
-
+        monsterManage = FindObjectOfType<MonsterManage>();
     }
 
     private void Update()
@@ -125,9 +125,10 @@ public class SlimeKingMovement : NetworkBehaviour
     public void UpdateHealthClientRpc(float damage)
     {
         health -= damage;
-        if (health <= 0)
+        if (this.health <= 0)
         {
             Destroy(gameObject);
+            RemoveMonsterServerRpc();
         }
     }
 
@@ -155,6 +156,7 @@ public class SlimeKingMovement : NetworkBehaviour
 
     private void PerformAttackPattern(float[] angles)
     {
+
         foreach (float angle in angles)
         {
             Vector3 spawnPosition = transform.position;
@@ -181,5 +183,13 @@ public class SlimeKingMovement : NetworkBehaviour
         {
             StartCoroutine(AttackCoroutine());
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+
+    private void RemoveMonsterServerRpc()
+    {
+        monsterManage.HandleMonsterDeathServerRpc(gameObject);
+        Destroy(gameObject);
     }
 }
