@@ -9,13 +9,12 @@ public class WaveManager : NetworkBehaviour
     public GameObject werewolfPrefab;
     public GameObject slimeKingPrefab;
     public GameObject golemBossPrefab;
-    public float waveDuration = 30f; // Thời gian mỗi lượt (30 giây)
-    public int monstersPerWave = 6; // Số quái vật mỗi lượt
-    private int currentWave = 0; // Đếm số lượt hiện tại
+    public float waveDuration = 30f; 
+    public int monstersPerWave = 6; 
+    private int currentWave = 0; 
 
-    private int slimeKingCount = 0; // Số lượng slime king đã spawn
-    private int golemCount = 0;     // Số lượng golem đã spawn
-
+    private int slimeKingCount = 0; 
+    private int golemCount = 0;     
     private bool isWaveInProgress = false;
     private MonsterManage monsterManage;
 
@@ -59,11 +58,11 @@ public class WaveManager : NetworkBehaviour
     }
 
     // ClientRpc để spawn quái vật trên tất cả client
-    [ClientRpc]
+   /* [ClientRpc]
     private void SpawnMonstersClientRpc(int wave)
     {
         SpawnMonsters(wave);
-    }
+    }*/
 
     private void SpawnMonsters(int wave)
     {

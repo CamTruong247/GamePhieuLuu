@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 5949357175300038937}
   - component: {fileID: 3166152550875579555}
   - component: {fileID: 6663563483328592257}
+  - component: {fileID: 154889036287822845}
   m_Layer: 7
   m_Name: Avatar
   m_TagString: Untagged
@@ -250,6 +251,22 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &154889036287822845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507953787331465463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16e048f5672aab4c9e6a68c532b9ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 1507953787331465463}
+  spriteList:
+  - {fileID: 21300000, guid: 0fe380791c79c7945ab80ee916165c0b, type: 3}
+  - {fileID: -1331018715, guid: 2f3a2968069ecc24d9175c5d05dfe98c, type: 3}
 --- !u!1 &2509176050631054160
 GameObject:
   m_ObjectHideFlags: 0

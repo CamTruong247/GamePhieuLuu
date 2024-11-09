@@ -119,19 +119,29 @@ public class SlimeMovement : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdateHealthServerRpc(float health)
+    public void UpdateHealthServerRpc(float damage)
     {
-        UpdateHealthClientRpc(health);
+        UpdateHealthClientRpc(damage);
     }
 
     [ClientRpc]
-    public void UpdateHealthClientRpc(float health)
+    public void UpdateHealthClientRpc(float damage)
     {
-        this.health -= health;
-        if (this.health <= 0)
+        health -= damage;
+        if (health <= 0)
         {
-            Destroy(gameObject);
-            RemoveMonsterServerRpc();
+            RemoveMonsterServerRpc(); // Gọi Remove trên server khi máu về 0
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveMonsterServerRpc()
+    {
+        monsterManage.HandleMonsterDeathServerRpc(gameObject); // Xử lý cái chết của quái vật
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Despawn(); // Xóa khỏi mạng thay vì dùng Destroy trực tiếp
         }
     }
 
@@ -145,13 +155,5 @@ public class SlimeMovement : NetworkBehaviour
     private void HealthBarClientRpc()
     {
         healthbar.fillAmount = health / 20f;
-    }
-    
-    [ServerRpc(RequireOwnership = false)]
-
-    private void RemoveMonsterServerRpc()
-    {
-        monsterManage.HandleMonsterDeathServerRpc(gameObject);
-        Destroy(gameObject);
     }
 }

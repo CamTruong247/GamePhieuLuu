@@ -7,7 +7,7 @@ public class MonsterManage : MonoBehaviour
     private List<GameObject> activeEnemies = new List<GameObject>(); // Danh sách các quái vật đang sống
     private int currentWave = 0; // Biến để theo dõi số wave hiện tại
     private int totalWaves = 3; // Tổng số wave (có thể điều chỉnh theo nhu cầu)
-
+    public GameObject winpanel;
     // Cập nhật wave hiện tại (được gọi từ Map4Manager)
     public void SetCurrentWave(int waveNumber)
     {
@@ -35,6 +35,7 @@ public class MonsterManage : MonoBehaviour
         if (activeEnemies.Count == 0 && currentWave == totalWaves)
         {
             Debug.Log("Bạn đã thắng tất cả các wave!");
+            winpanel.SetActive(true);
             
         }
         else if (activeEnemies.Count == 0)

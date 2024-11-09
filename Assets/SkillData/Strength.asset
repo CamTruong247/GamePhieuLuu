@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bef543863365454b8eeea99891ec9b7, type: 3}
   m_Name: Strength
   m_EditorClassIdentifier: 
-  skillName: "Th\u1EA7n l\u1EF1c"
-  skillDescription: "T\u0103ng th\xEAm s\u1EE9c m\u1EA1nh cho ng\u01B0\u1EDDi ch\u01A1i"
+  skillName: Aura
+  skillDescription: "T\u1EA1o ra 1 tr\u01B0\u1EDDng l\u1EF1c g\xE2y s\xE1t th\u01B0\u01A1ng
+    li\xEAn t\u1EE5c"
   skillType: "B\u1ECB \u0111\u1ED9ng"
+  isSkillUnlocked: 1

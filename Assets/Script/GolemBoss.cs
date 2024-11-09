@@ -94,20 +94,24 @@ public class GolemBoss : NetworkBehaviour
     [ClientRpc]
     public void UpdateHealthClientRpc(float damage)
     {
-        health -= damage;
-        if (this.health <= 0)
+        this.health -= damage;
+        if (health <= 0)
         {
-            Destroy(gameObject);
-            RemoveMonsterServerRpc();
+            RemoveMonsterServerRpc(); // Gọi Remove trên server khi máu về 0
         }
     }
-    [ServerRpc(RequireOwnership = false)]
 
+    [ServerRpc(RequireOwnership = false)]
     private void RemoveMonsterServerRpc()
     {
-        monsterManage.HandleMonsterDeathServerRpc(gameObject);
-        Destroy(gameObject);
+        monsterManage.HandleMonsterDeathServerRpc(gameObject); // Xử lý cái chết của quái vật
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Despawn(); // Xóa khỏi mạng thay vì dùng Destroy trực tiếp
+        }
     }
+
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;

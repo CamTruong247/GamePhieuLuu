@@ -144,19 +144,29 @@ public class werewolfmovement : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdateHealthServerRpc(float health)
+    public void UpdateHealthServerRpc(float damage)
     {
-        UpdateHealthClientRpc(health);
+        UpdateHealthClientRpc(damage);
     }
 
     [ClientRpc]
-    public void UpdateHealthClientRpc(float health)
+    public void UpdateHealthClientRpc(float damage)
     {
-        this.health -= health;
-        if (this.health <= 0)
+        this.health -= damage;
+        if (health <= 0)
         {
-            Destroy(gameObject);
-            RemoveMonsterServerRpc();
+            RemoveMonsterServerRpc(); 
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveMonsterServerRpc()
+    {
+        monsterManage.HandleMonsterDeathServerRpc(gameObject);
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Despawn(); 
         }
     }
 
@@ -170,12 +180,5 @@ public class werewolfmovement : NetworkBehaviour
     private void HealthBarClientRpc()
     {
         healthbar.fillAmount = health / 20f;
-    }
-    [ServerRpc(RequireOwnership = false)]
-
-    private void RemoveMonsterServerRpc()
-    {
-        monsterManage.HandleMonsterDeathServerRpc(gameObject);
-        Destroy(gameObject);
     }
 }
