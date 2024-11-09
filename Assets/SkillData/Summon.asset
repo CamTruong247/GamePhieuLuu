@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bef543863365454b8eeea99891ec9b7, type: 3}
   m_Name: Summon
   m_EditorClassIdentifier: 
-  skillName: "Mi\xEAu th\u1EA7n"
+  skillName: "Mi\xEAu Tinh"
   skillDescription: "Tri\u1EC7u h\u1ED3i ra pet m\xE8o h\u1ED7 tr\u1EE3 ng\u01B0\u1EDDi
     ch\u01A1i. M\xE8o c\xF3 ch\u1EE9c n\u0103ng t\u1EA5n c\xF4ng v\xE0o qu\xE1i v\u1EADt
     g\u1EA7n nh\u1EA5t"

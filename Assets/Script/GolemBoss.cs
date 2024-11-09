@@ -23,11 +23,13 @@ public class GolemBoss : NetworkBehaviour
     private float summonCooldown = 20f; // Cooldown for summoning slimes
     private float summonTimer = 20f; // Timer for summoning slimes
     private Quaternion originalRotate;
+    private MonsterManage monsterManage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
         animator = GetComponent<Animator>();
+        monsterManage = FindObjectOfType<MonsterManage>();
     }
 
     private void Update()
@@ -92,10 +94,21 @@ public class GolemBoss : NetworkBehaviour
     [ClientRpc]
     public void UpdateHealthClientRpc(float damage)
     {
-        health -= damage;
+        this.health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            RemoveMonsterServerRpc(); // Gọi Remove trên server khi máu về 0
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveMonsterServerRpc()
+    {
+        monsterManage.HandleMonsterDeathServerRpc(gameObject); // Xử lý cái chết của quái vật
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Despawn(); // Xóa khỏi mạng thay vì dùng Destroy trực tiếp
         }
     }
 

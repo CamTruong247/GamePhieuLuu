@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
@@ -50,7 +51,7 @@ public class PlayerStats : NetworkBehaviour
         if (newHealth != health)
         {
             // Cập nhật lượng máu mới vào server
-            UpdateHealthServerRpc(-(newHealth - health));  // Truyền giá trị âm để tăng máu
+            UpdateHealthServerRpc(-(healAmount));  // Truyền giá trị âm để tăng máu
             health = newHealth;  // Cập nhật giá trị health trên client
             SpawnHealingEffect();
         }
@@ -68,7 +69,7 @@ public class PlayerStats : NetworkBehaviour
     }
     private IEnumerator Deplay()
     {
-      
+
         yield return new WaitForSeconds(0.5f);
 
         if (healingEffectInstance != null)
