@@ -68,12 +68,16 @@ public class SlimeMovement : NetworkBehaviour
         // Tìm player gần nhất
         foreach (GameObject playerObj in players)
         {
-            float distance = Vector2.Distance(transform.position, playerObj.transform.position);
-            if (distance < closestDistance)
+            if (playerObj.transform.GetChild(0).gameObject.activeSelf)
             {
-                closestDistance = distance;
-                targetPlayer = playerObj.transform; // Cập nhật player gần nhất
+                float distance = Vector2.Distance(transform.position, playerObj.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    targetPlayer = playerObj.transform; // Cập nhật player gần nhất
+                }
             }
+            
         }
     }
 
@@ -130,6 +134,8 @@ public class SlimeMovement : NetworkBehaviour
         health -= damage;
         if (health <= 0)
         {
+            DropItem item = gameObject.GetComponent<DropItem>();
+            item.DropItemServerRpc();
             RemoveMonsterServerRpc(); // Gọi Remove trên server khi máu về 0
         }
     }

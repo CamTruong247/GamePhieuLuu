@@ -15,3 +15,4 @@ MonoBehaviour:
   skillName: "Th\u1EA7n ti\u1EC5n"
   skillDescription: "T\u1EA1o th\xEAm 1 vi\xEAn \u0111\u1EA1n "
   skillType: "B\u1ECB \u0111\u1ED9ng"
+  isSkillUnlocked: 1

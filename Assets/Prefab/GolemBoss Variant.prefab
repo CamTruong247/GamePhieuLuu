@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 9009533430098892886}
   - component: {fileID: 1337609685760325855}
   - component: {fileID: -3761244887247219159}
+  - component: {fileID: -3150422537822742194}
   m_Layer: 10
   m_Name: GolemBoss Variant
   m_TagString: Enemy
@@ -556,3 +557,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3150422537822742194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915085085101879606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daca9bb41557db94fa70198a6ec0e8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 4994437597748781922, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}

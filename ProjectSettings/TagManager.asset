@@ -19,9 +19,9 @@ TagManager:
   - Enemy
   - AttackBall
   - SlimeKingBullet
-  - 
-  - 
-  - 
+  - Wall
+  - Item
+  - Trap
   - 
   - 
   - 

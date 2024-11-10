@@ -16,3 +16,4 @@ MonoBehaviour:
   skillDescription: "H\u1ED3i 1 l\u01B0\u1EE3ng m\xE1u cho ng\u01B0\u1EDDi ch\u01A1i
     trong th\u1EDDi gian nh\u1EA5t \u0111\u1ECBnh"
   skillType: "B\u1ECB \u0111\u1ED9ng"
+  isSkillUnlocked: 1

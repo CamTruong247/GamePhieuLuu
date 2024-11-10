@@ -12,6 +12,8 @@ public class Weapon : NetworkBehaviour
 
     private bool isAutoAttackActive = false; // Trạng thái tấn công tự động
 
+    public Camera camera;
+
     void Update()
     {
         // Kiểm tra nhấn chuột trái
@@ -114,7 +116,7 @@ public class Weapon : NetworkBehaviour
 
     private void RotationWeapon()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 look = mousePos - transform.position;
         float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);

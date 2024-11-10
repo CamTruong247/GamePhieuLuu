@@ -31,7 +31,7 @@ public class Bullet : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * 4;
+        rb.velocity = transform.up * 10;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
