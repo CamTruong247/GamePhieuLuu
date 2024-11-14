@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemBomb Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4994437597748781922, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 6551731162414392331, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
       propertyPath: m_Sprite
       value: 

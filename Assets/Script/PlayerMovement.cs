@@ -21,18 +21,19 @@ public class PlayerMovement : NetworkBehaviour
     }
     private void Start()
     {
-        if (speedSkillData.isSkillUnlocked)
-        {
-            SetMoveSpeedServerRpc(baseSpeed * 2); 
-        }
-        else
-        {
-            SetMoveSpeedServerRpc(baseSpeed); 
-        }
+       
     }
     private void Update()
     {
         MoveServerRpc();
+        if (speedSkillData.isSkillUnlocked)
+        {
+            SetMoveSpeedServerRpc(baseSpeed * 2);
+        }
+        else
+        {
+            SetMoveSpeedServerRpc(baseSpeed);
+        }
     }
     [ServerRpc(RequireOwnership = false)]
     private void SetMoveSpeedServerRpc(float newSpeed)

@@ -72,6 +72,16 @@ public class Bullet : NetworkBehaviour
                 {
                     slimeKingMovement.UpdateHealthServerRpc(3);
                 }
+                PumpkinBoss pumpkinboss =collision.gameObject.GetComponent<PumpkinBoss>();
+                if(pumpkinboss != null)
+                {
+                    pumpkinboss.UpdateHealthServerRpc(3);
+                }
+                Phase2pumpkin phase2pumpkin=collision.gameObject.GetComponent<Phase2pumpkin>();
+                if(phase2pumpkin != null)
+                {
+                    phase2pumpkin.UpdateHealthServerRpc(3);
+                }
             }
 
             // Despawn the bullet after hitting an enemy if on the server

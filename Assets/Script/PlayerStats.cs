@@ -106,7 +106,7 @@ public class PlayerStats : NetworkBehaviour
 
     private void Update()
     {
-        Debug.Log(money);
+        //Debug.Log(money);
         UpdateUIPlayerServerRpc();
         HealthBarServerRpc();
     }
