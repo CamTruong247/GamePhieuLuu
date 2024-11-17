@@ -13,7 +13,11 @@ public class MonsterManage : MonoBehaviour
     {
         currentWave = waveNumber;
     }
-
+    public void SetTotalWaves(int waves)
+    {
+        totalWaves = waves;
+        Debug.Log("Total waves set to: " + totalWaves); // Kiểm tra giá trị
+    }
     // Trả về số lượng quái vật còn lại trong danh sách
     public int GetActiveEnemiesCount()
     {
@@ -43,6 +47,7 @@ public class MonsterManage : MonoBehaviour
             Debug.Log("Tất cả quái vật trong wave " + currentWave + " đã bị tiêu diệt!");
         }
     }
+    
 
     // Thêm quái vật vào danh sách activeEnemies (có thể là ClientRpc hoặc ServerRpc)
     [ServerRpc(RequireOwnership = false)]

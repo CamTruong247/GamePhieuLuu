@@ -10,7 +10,7 @@ public class WaveManager : NetworkBehaviour
     public GameObject slimeKingPrefab;
     public GameObject golemBossPrefab;
     public float waveDuration = 30f; 
-    public int monstersPerWave = 6; 
+    public int monstersPerWave = 12; 
     private int currentWave = 0; 
 
     private int slimeKingCount = 0; 
@@ -58,11 +58,11 @@ public class WaveManager : NetworkBehaviour
     }
 
     // ClientRpc để spawn quái vật trên tất cả client
-   /* [ClientRpc]
-    private void SpawnMonstersClientRpc(int wave)
-    {
-        SpawnMonsters(wave);
-    }*/
+    /* [ClientRpc]
+     private void SpawnMonstersClientRpc(int wave)
+     {
+         SpawnMonsters(wave);
+     }*/
 
     private void SpawnMonsters(int wave)
     {
@@ -75,16 +75,26 @@ public class WaveManager : NetworkBehaviour
 
         for (int i = 0; i < monstersPerWave; i++)
         {
-            // Sinh vị trí ngẫu nhiên trong phạm vi
-            Vector3 randomPosition = GetRandomSpawnPosition();
-
             // Chọn quái vật theo độ khó
             GameObject monsterToSpawn = GetMonsterByDifficulty(wave);
 
+            // Kiểm tra nếu là Golem Boss
+            Vector3 spawnPosition;
+            if (monsterToSpawn == golemBossPrefab)
+            {
+                // Golem Boss xuất hiện ở vị trí trung tâm
+                spawnPosition = Vector3.zero;
+            }
+            else
+            {
+                // Các quái vật khác xuất hiện tại vị trí ngẫu nhiên
+                spawnPosition = GetRandomSpawnPosition();
+            }
+
             if (monsterToSpawn != null)
             {
-                // Instantiate quái vật tại vị trí ngẫu nhiên
-                GameObject monster = Instantiate(monsterToSpawn, randomPosition, Quaternion.identity);
+                // Instantiate quái vật tại vị trí tương ứng
+                GameObject monster = Instantiate(monsterToSpawn, spawnPosition, Quaternion.identity);
 
                 // Spawn quái vật trên mạng (NetworkObject)
                 NetworkObject networkObject = monster.GetComponent<NetworkObject>();
@@ -96,6 +106,7 @@ public class WaveManager : NetworkBehaviour
             }
         }
     }
+
 
     private Vector3 GetRandomSpawnPosition()
     {
@@ -109,21 +120,21 @@ public class WaveManager : NetworkBehaviour
     private GameObject GetMonsterByDifficulty(int wave)
     {
         
-        if (wave >= 7 && golemCount < 1)
+        if (wave >= 4 && golemCount < 1)
         {
             
             golemCount++;
             return golemBossPrefab;
         }
-        else if (wave >= 5 && slimeKingCount < 3)
+        else if (wave >= 3 && slimeKingCount < 3)
         {
            
             slimeKingCount++;
             return slimeKingPrefab;
         }
 
-       
-        return wave <= 3 ? slimePrefab : werewolfPrefab;
+
+        return Random.Range(0, 2) == 0 ? slimePrefab : werewolfPrefab;
     }
 
   

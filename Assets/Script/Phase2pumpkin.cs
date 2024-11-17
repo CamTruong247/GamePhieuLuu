@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
@@ -146,19 +146,28 @@ public class Phase2pumpkin : NetworkBehaviour
         {
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             GameObject laser = Instantiate(laserPrefab, transform.position, rotation);
-            laser.GetComponent<NetworkObject>().Spawn();
-            StartCoroutine(RotateAndDespawnLaser(laser.transform));
+            var networkObject = laser.GetComponent<NetworkObject>();
+            networkObject.Spawn();
+
+            // Truyền NetworkObject ID cho ClientRpc để xoay laser
+            RotateLaserClientRpc(networkObject.NetworkObjectId, 30f);  // 30f là tốc độ xoay
         }
 
-        yield return new WaitForSeconds(2f); // Delay before next attack
+        yield return new WaitForSeconds(2f); // Delay trước khi tấn công tiếp theo
     }
 
-    private IEnumerator RotateAndDespawnLaser(Transform laserTransform)
+    [ClientRpc]
+    private void RotateLaserClientRpc(ulong networkObjectId, float rotateSpeed)
     {
-        float rotateSpeed = 30f; // Adjust rotation speed as needed
-        float duration = 5f; // Laser lifespan in seconds
+        GameObject laserObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[networkObjectId].gameObject;
+        StartCoroutine(RotateLaser(laserObject.transform, rotateSpeed));
+    }
 
+    private IEnumerator RotateLaser(Transform laserTransform, float rotateSpeed)
+    {
+        float duration = 5f; // Thời gian sống của laser (5 giây)
         float timer = 0f;
+
         while (timer < duration)
         {
             timer += Time.deltaTime;
@@ -169,7 +178,7 @@ public class Phase2pumpkin : NetworkBehaviour
             yield return null;
         }
 
-        // Despawn laser after duration
+        // Despawn laser sau khi hết thời gian
         if (laserTransform != null && laserTransform.GetComponent<NetworkObject>().IsSpawned)
         {
             laserTransform.GetComponent<NetworkObject>().Despawn();

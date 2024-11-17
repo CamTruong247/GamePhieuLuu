@@ -9,7 +9,9 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private Transform shootingPoint; // Điểm bắn
     public Animator animator; // Animator để điều khiển hoạt ảnh
     public SkillData skillData; // Tham chiếu tới SkillData
-
+    public SkillData skillDataQ;
+    private float skillQCooldown = 10f;
+    private float lastSkillQTime = -10f;
     private bool isAutoAttackActive = false; // Trạng thái tấn công tự động
 
     public Camera camera;
@@ -89,15 +91,27 @@ public class Weapon : NetworkBehaviour
     {
         if (IsServer)
         {
-            Vector3 laserPosition = transform.position; // Đặt laser ở vị trí của nhân vật
-            var l = Instantiate(laser, laserPosition, transform.rotation);
-            l.GetComponent<NetworkObject>().Spawn();
+            // Kiểm tra kỹ năng Q có mở khóa không và thời gian cooldown
+            if (skillDataQ != null && skillDataQ.isSkillUnlocked && Time.time - lastSkillQTime >= skillQCooldown)
+            {
+                // Cập nhật thời gian sử dụng kỹ năng Q
+                lastSkillQTime = Time.time;
 
-            // Gọi coroutine để hủy laser sau 0.5 giây
-            StartCoroutine(DestroyLaserAfterDelay(l, 0.8f));
+                // Đặt laser ở vị trí của nhân vật
+                Vector3 laserPosition = transform.position;
+                var l = Instantiate(laser, laserPosition, transform.rotation);
+                l.GetComponent<NetworkObject>().Spawn();
+
+              
+                StartCoroutine(DestroyLaserAfterDelay(l, 0.7f));
+            }
+            else
+            {
+                // Nếu kỹ năng Q chưa mở khóa hoặc cooldown chưa hết, không làm gì
+                Debug.Log("Skill Q not unlocked or still on cooldown");
+            }
         }
     }
-
     // Coroutine để hủy laser sau một khoảng thời gian nhất định
     private IEnumerator DestroyLaserAfterDelay(GameObject laser, float delay)
     {

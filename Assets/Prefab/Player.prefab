@@ -395,6 +395,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 3214291345856571404}
   animator: {fileID: 1386162184423243405}
   skillData: {fileID: 11400000, guid: 1bbbdddf3fa840c43a777e91467bdcc7, type: 2}
+  skillDataQ: {fileID: 11400000, guid: 247e4aaf478bb9448999216cfa4039d0, type: 2}
   camera: {fileID: 5519167984170493438}
 --- !u!212 &7362345823791042709
 SpriteRenderer:
@@ -629,7 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4194600967
+  GlobalObjectIdHash: 1982406225
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -719,6 +720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pet: {fileID: 2075191138806280774, guid: 0a6afd5a37abdc14dad4a08cb19f6224, type: 3}
   summonDistance: 2
+  summonPetSkillData: {fileID: 11400000, guid: 406e0dc4c998857408d2ed42e21321d6, type: 2}
 --- !u!114 &1803852506416279386
 MonoBehaviour:
   m_ObjectHideFlags: 0

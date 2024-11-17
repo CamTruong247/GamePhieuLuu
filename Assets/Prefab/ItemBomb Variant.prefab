@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2040749333386320700, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 538170357
+      value: 3858424259
       objectReference: {fileID: 0}
     - target: {fileID: 2040749333386320700, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 1944479663
+      value: 538170357
       objectReference: {fileID: 0}
     - target: {fileID: 3255003489979923329, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -92,6 +92,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4994437597748781922, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4242956921269358602}
+    - targetCorrespondingSourceObject: {fileID: 4994437597748781922, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4422708316202184161}
   m_SourcePrefab: {fileID: 100100000, guid: 3159cc70200ce8c40bbe96b36bff3726, type: 3}
 --- !u!1 &3068394619331680718 stripped
 GameObject:
@@ -111,3 +114,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 5
+--- !u!95 &4422708316202184161
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068394619331680718}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9cc1a65255bdc5149837dacd91b9fba3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

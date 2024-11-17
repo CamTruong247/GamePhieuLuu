@@ -58,11 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1800513650116965219, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 155924287
+      value: 2549828522
       objectReference: {fileID: 0}
     - target: {fileID: 1800513650116965219, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 851610543
+      value: 155924287
       objectReference: {fileID: 0}
     - target: {fileID: 2211253825875840209, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
       propertyPath: m_Sprite
@@ -78,12 +78,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2756265387413822918, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
+    - {fileID: 2834198789033176732, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8105145022799536750, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7726197127674695288}
+    - targetCorrespondingSourceObject: {fileID: 8105145022799536750, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5083463553824461470}
   m_SourcePrefab: {fileID: 100100000, guid: 6bf77ac09d9e7df4d8393dbc13eca64c, type: 3}
 --- !u!114 &3426941482795511585 stripped
 MonoBehaviour:
@@ -120,3 +124,24 @@ MonoBehaviour:
   health: 150
   attackInterval: 3
   healthbar: {fileID: 3426941482795511585}
+--- !u!95 &5083463553824461470
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413244782422686627}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fce64c7cffbcc794c9180edf8fa51656, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
